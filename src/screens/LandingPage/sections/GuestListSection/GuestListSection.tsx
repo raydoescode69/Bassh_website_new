@@ -66,7 +66,7 @@ export const GuestListSection = (): JSX.Element => {
             ))}
 
             <img
-              className="absolute top-[200px] left-1/2 -translate-x-1/2 w-[790px] h-[484px] object-cover"
+              className="absolute top-[100px] left-1/2 -translate-x-1/2 w-[790px] h-auto max-h-[500px] object-contain"
               alt="Dashboard preview"
               src="/image-10.png"
             />
