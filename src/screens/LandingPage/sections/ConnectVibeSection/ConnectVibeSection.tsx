@@ -38,27 +38,27 @@ export const ConnectVibeSection = (): JSX.Element => {
             {contentSections[0].description}
           </p>
 
-          <div className="relative flex justify-center items-center">
+          <div className="relative flex justify-center items-center max-w-[450px] mx-auto">
             <img
-              className={`${contentSections[0].mainImageClasses} object-cover`}
+              className="w-full h-auto max-h-[480px] object-contain"
               alt="Guest list approvals interface"
               src={contentSections[0].mainImage}
             />
 
             <img
-              className="absolute top-[170px] -left-12 w-[289px] h-[86px] object-cover"
+              className="absolute top-[140px] -left-8 w-[240px] h-auto object-cover"
               alt="Decorative element"
               src={contentSections[0].decorativeImages[0].src}
             />
 
             <img
-              className="absolute top-[317px] -left-24 w-[271px] h-[83px] object-cover"
+              className="absolute top-[240px] -left-12 w-[220px] h-auto object-cover"
               alt="Decorative element"
               src={contentSections[0].decorativeImages[1].src}
             />
 
             <img
-              className="absolute bottom-[-64px] -left-8 w-[350px] h-[53px] object-cover"
+              className="absolute bottom-[20px] -left-4 w-[280px] h-auto object-cover"
               alt="Decorative element"
               src={contentSections[0].decorativeImages[2].src}
             />
