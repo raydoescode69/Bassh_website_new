@@ -34,7 +34,7 @@ export const AppShowcaseSection = (): JSX.Element => {
 
           <div className="flex flex-col space-y-8">
             <img
-              className="w-full max-w-[400px] h-auto object-contain mx-auto lg:mx-0"
+              className="w-full max-w-[280px] max-h-[500px] h-auto object-contain mx-auto lg:mx-0"
               alt="iPhone app preview"
               src="/iphone-15.png"
             />
