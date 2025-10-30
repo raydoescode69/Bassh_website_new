@@ -47,73 +47,77 @@ export const GuestListSection = (): JSX.Element => {
           </div>
 
           {/* Desktop Layout */}
-          <div className="relative w-full max-w-[1400px] min-h-[700px] mt-8 md:mt-10 lg:mt-16 hidden lg:flex items-center justify-center">
-            {/* Left badges */}
-            <div className="absolute left-0 lg:left-4 xl:left-0 top-1/2 -translate-y-1/2 flex flex-col gap-8">
-              {featureBadges
-                .filter((b) => b.position === "left")
-                .map((badge, index) => (
-                  <Badge
-                    key={index}
-                    className={`h-[56px] px-7 bg-[#c300602e] rounded-xl border border-solid border-[#ff007e45] hover:bg-[#c300603e] transition-all duration-700 delay-${(index + 2) * 100} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}
-                  >
-                    <span className="[font-family:'Poppins',Helvetica] font-medium text-white text-base tracking-[0] leading-[30px] whitespace-nowrap">
-                      {badge.label}
-                    </span>
-                  </Badge>
-                ))}
-            </div>
+          <div className="relative w-full max-w-[1600px] min-h-[800px] mt-8 md:mt-10 lg:mt-16 hidden lg:block">
+            <div className="flex items-center justify-center h-full">
+              {/* Left badges */}
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-6 xl:gap-8 z-10">
+                {featureBadges
+                  .filter((b) => b.position === "left")
+                  .map((badge, index) => (
+                    <Badge
+                      key={index}
+                      className={`h-[52px] xl:h-[56px] px-6 xl:px-7 bg-[#c300602e] rounded-xl border border-solid border-[#ff007e45] hover:bg-[#c300603e] transition-all duration-700 delay-${(index + 2) * 100} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}
+                    >
+                      <span className="[font-family:'Poppins',Helvetica] font-medium text-white text-sm xl:text-base tracking-[0] leading-[30px] whitespace-nowrap">
+                        {badge.label}
+                      </span>
+                    </Badge>
+                  ))}
+              </div>
 
-            {/* Right badges */}
-            <div className="absolute right-0 lg:right-4 xl:right-0 top-1/2 -translate-y-1/2 flex flex-col gap-8">
-              {featureBadges
-                .filter((b) => b.position === "right")
-                .map((badge, index) => (
-                  <Badge
-                    key={index}
-                    className={`h-[56px] px-7 bg-[#c300602e] rounded-xl border border-solid border-[#ff007e45] hover:bg-[#c300603e] transition-all duration-700 delay-${(index + 5) * 100} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
-                  >
-                    <span className="[font-family:'Poppins',Helvetica] font-medium text-white text-base tracking-[0] leading-[30px] whitespace-nowrap">
-                      {badge.label}
-                    </span>
-                  </Badge>
-                ))}
-            </div>
+              {/* Right badges */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-6 xl:gap-8 z-10">
+                {featureBadges
+                  .filter((b) => b.position === "right")
+                  .map((badge, index) => (
+                    <Badge
+                      key={index}
+                      className={`h-[52px] xl:h-[56px] px-6 xl:px-7 bg-[#c300602e] rounded-xl border border-solid border-[#ff007e45] hover:bg-[#c300603e] transition-all duration-700 delay-${(index + 5) * 100} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
+                    >
+                      <span className="[font-family:'Poppins',Helvetica] font-medium text-white text-sm xl:text-base tracking-[0] leading-[30px] whitespace-nowrap">
+                        {badge.label}
+                      </span>
+                    </Badge>
+                  ))}
+              </div>
 
-            {/* Dashboard image - centered */}
-            <div className={`flex justify-center items-center px-4 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-              <img
-                className="w-full max-w-[700px] xl:max-w-[900px] h-auto object-contain"
-                alt="Dashboard preview"
-                src="/image-10.png"
-              />
-            </div>
-
-            {/* Video preview card - positioned for desktop */}
-            <div className={`absolute top-8 right-[8%] xl:right-[12%] transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}>
-              <Card className="w-[280px] xl:w-[320px] h-[190px] xl:h-[220px] bg-[#000000cc] border-[#ff007e45] overflow-hidden group hover:border-[#ff007e] transition-all">
-                <CardContent className="p-0 relative">
+              {/* Dashboard image - centered with proper spacing */}
+              <div className={`flex justify-center items-center px-[220px] xl:px-[240px] py-16 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+                <div className="relative">
                   <img
-                    className="w-full h-full object-cover"
-                    alt="Feature preview"
-                    src="/image-154.png"
+                    className="w-full max-w-[600px] xl:max-w-[750px] h-auto object-contain relative z-0"
+                    alt="Dashboard preview"
+                    src="/image-10.png"
                   />
-                  <Button
-                    size="icon"
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[48px] h-[48px] rounded-full bg-[#ff007e]/20 hover:bg-[#ff007e]/40 border-2 border-[#ff007e] transition-all group-hover:scale-110"
-                  >
-                    <PlayIcon className="w-6 h-6 text-white fill-white" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+                  
+                  {/* Decorative frame behind dashboard */}
+                  <img
+                    className={`absolute -top-8 -left-16 xl:-top-12 xl:-left-20 w-[180px] xl:w-[220px] h-auto opacity-30 transition-all duration-700 delay-300 -z-10 ${isVisible ? "opacity-30 rotate-0" : "opacity-0 -rotate-12"}`}
+                    alt="Decorative frame"
+                    src="/frame-17.svg"
+                  />
+                </div>
+              </div>
 
-            {/* Decorative frame */}
-            <img
-              className={`absolute top-[18%] left-[8%] xl:left-[12%] w-[200px] xl:w-[260px] h-auto opacity-40 transition-all duration-700 delay-300 ${isVisible ? "opacity-40 rotate-0" : "opacity-0 -rotate-12"}`}
-              alt="Decorative frame"
-              src="/frame-17.svg"
-            />
+              {/* Video preview card - positioned above dashboard */}
+              <div className={`absolute top-4 right-[15%] xl:right-[18%] transition-all duration-700 delay-400 z-20 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}>
+                <Card className="w-[260px] xl:w-[300px] h-[175px] xl:h-[200px] bg-[#000000e6] border-[#ff007e45] overflow-hidden group hover:border-[#ff007e] transition-all shadow-2xl">
+                  <CardContent className="p-0 relative">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt="Feature preview"
+                      src="/image-154.png"
+                    />
+                    <Button
+                      size="icon"
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[48px] h-[48px] rounded-full bg-[#ff007e]/20 hover:bg-[#ff007e]/40 border-2 border-[#ff007e] transition-all group-hover:scale-110"
+                    >
+                      <PlayIcon className="w-6 h-6 text-white fill-white" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
 
           {/* Mobile/Tablet Dashboard Preview */}

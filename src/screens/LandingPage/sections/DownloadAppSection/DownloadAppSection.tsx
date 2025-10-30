@@ -87,30 +87,6 @@ export const DownloadAppSection = (): JSX.Element => {
                 );
               })}
             </div>
-            <div className="flex flex-col gap-3 mt-2">
-              <a
-                href="#"
-                className="w-[163px] h-14 hover:opacity-80 transition-all hover:scale-105"
-                aria-label="Download on Google Play"
-              >
-                <img 
-                  src="/app-download-logo-4.png" 
-                  alt="Google Play" 
-                  className="w-full h-full object-contain"
-                />
-              </a>
-              <a
-                href="#"
-                className="w-[163px] h-14 hover:opacity-80 transition-all hover:scale-105"
-                aria-label="Download on App Store"
-              >
-                <img 
-                  src="/app-download-logo-5.png" 
-                  alt="App Store" 
-                  className="w-full h-full object-contain"
-                />
-              </a>
-            </div>
           </div>
         </div>
 

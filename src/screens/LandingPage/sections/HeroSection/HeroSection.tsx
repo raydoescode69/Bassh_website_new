@@ -2,6 +2,7 @@
 import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { useScrollAnimation } from "../../../../lib/useScrollAnimation";
+import { WaitlistForm } from "../../../../components/WaitlistForm";
 
 export const HeroSection = (): JSX.Element => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
@@ -15,41 +16,34 @@ export const HeroSection = (): JSX.Element => {
         >
           <CardContent className="p-0">
             <div className="flex flex-col lg:flex-row items-center justify-between relative">
-              <div className="flex flex-col gap-4 md:gap-6 lg:gap-8 p-8 md:p-12 lg:pl-16 xl:pl-[104px] lg:pr-8 lg:py-20 xl:py-[159px] flex-1 text-center lg:text-left">
-                <h1 className="[font-family:'Poppins',Helvetica] font-bold text-white text-2xl md:text-3xl lg:text-[40px] tracking-[0] leading-tight lg:leading-9">
-                  Download the app now!
-                </h1>
+              <div className="flex flex-col gap-4 md:gap-6 lg:gap-8 p-8 md:p-12 lg:pl-16 xl:pl-[104px] lg:pr-8 lg:py-16 xl:py-20 flex-1 text-center lg:text-left">
+                <div>
+                  <h1 className="[font-family:'Poppins',Helvetica] font-bold text-white text-2xl md:text-3xl lg:text-[40px] tracking-[0] leading-tight lg:leading-9 mb-4">
+                    Download the app now!
+                  </h1>
 
-                <p className="[font-family:'Poppins',Helvetica] font-normal text-white text-lg md:text-xl lg:text-2xl tracking-[0] leading-7 lg:leading-8 max-w-[475px] mx-auto lg:mx-0">
-                  Experience the club life of cities on Bassh mobile app
-                </p>
+                  <p className="[font-family:'Poppins',Helvetica] font-normal text-white text-lg md:text-xl lg:text-2xl tracking-[0] leading-7 lg:leading-8 max-w-[475px] mx-auto lg:mx-0 mb-6">
+                    Experience the club life of cities on Bassh mobile app
+                  </p>
+                </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 md:gap-4">
-                  <img
-                    src="/app-download-logo-2.png"
-                    alt="Download on App Store"
-                    className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform"
-                  />
-                  <img
-                    src="/app-download-logo-3.png"
-                    alt="Get it on Google Play"
-                    className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform"
-                  />
+                <div className="w-full max-w-md mx-auto lg:mx-0">
+                  <WaitlistForm variant="footer" />
                 </div>
               </div>
 
-              <div className="relative w-full lg:w-[40%] xl:w-[36.11%] h-[350px] md:h-[420px] lg:h-[470px] flex-shrink-0 lg:mr-8 xl:mr-[91.8px] mb-8 lg:mb-0">
+              <div className="relative w-full lg:w-[40%] xl:w-[36.11%] h-[350px] md:h-[420px] lg:h-[500px] flex-shrink-0 lg:mr-8 xl:mr-[91.8px] mb-8 lg:mb-0 flex items-center justify-center">
                 <img
                   src="/3f7e2757e62fd22592b879bd56b666011742294630-png.png"
                   alt="Phone mockup"
-                  className="w-full h-full object-contain lg:object-cover"
+                  className="w-full h-full object-contain"
                 />
 
-                <div className="absolute top-[15%] md:top-[20%] lg:top-[120px] left-1/2 -translate-x-1/2 w-[160px] md:w-[195px]">
+                <div className="absolute top-[15%] md:top-[18%] lg:top-[22%] left-1/2 -translate-x-1/2 w-[160px] md:w-[195px]">
                   <p className="[font-family:'Inter',Helvetica] font-medium text-black text-sm md:text-base lg:text-[19.8px] text-center tracking-[0] leading-6 md:leading-7">
-                    Scan the QR code to
+                    Scan to join
                     <br />
-                    download the app
+                    the waitlist
                   </p>
                 </div>
 
