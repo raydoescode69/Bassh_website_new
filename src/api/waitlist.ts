@@ -27,16 +27,6 @@ export async function addToWaitlist(entry: WaitlistEntry) {
             },
           ],
         },
-        "Joined Date": {
-          date: {
-            start: new Date().toISOString(),
-          },
-        },
-        Status: {
-          select: {
-            name: "Pending",
-          },
-        },
       },
     });
 

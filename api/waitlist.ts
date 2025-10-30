@@ -49,16 +49,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             },
           ],
         },
-        "Joined Date": {
-          date: {
-            start: new Date().toISOString(),
-          },
-        },
-        Status: {
-          select: {
-            name: "Pending",
-          },
-        },
       },
     });
 
