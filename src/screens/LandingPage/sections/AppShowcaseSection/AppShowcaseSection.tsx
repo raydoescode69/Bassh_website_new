@@ -25,7 +25,7 @@ export const AppShowcaseSection = (): JSX.Element => {
 
             <div className="flex flex-col items-center lg:items-start space-y-6">
               <img
-                className="w-full max-w-[400px] lg:max-w-[450px] h-auto object-contain hover:scale-105 transition-transform duration-300"
+                className="w-full max-w-[350px] lg:max-w-[400px] h-auto object-contain hover:scale-105 transition-transform duration-300"
                 alt="App showcase"
                 src="/image-2524.png"
               />
@@ -40,9 +40,9 @@ export const AppShowcaseSection = (): JSX.Element => {
           {/* Right Column */}
           <div className={`flex flex-col space-y-8 md:space-y-10 items-center lg:items-end transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
             <img
-              className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[420px] h-auto object-contain animate-float"
+              className="w-full max-w-[700px] md:max-w-[900px] lg:max-w-[1100px] h-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-[0_0_60px_rgba(255,0,126,0.5)]"
               alt="iPhone app preview"
-              src="/iphone-15.png"
+              src="/iPhone15.svg"
             />
 
             <div className="space-y-4 md:space-y-6 text-center lg:text-right w-full">
