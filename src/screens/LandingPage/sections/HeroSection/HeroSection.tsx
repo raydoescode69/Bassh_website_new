@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { Card, CardContent } from "../../../../components/ui/card";
-import { useScrollAnimation } from "../../../../lib/useScrollAnimation";
-import { WaitlistForm } from "../../../../components/WaitlistForm";
+import { Card, CardContent } from "@/components/ui/card";
+import { useScrollAnimation } from "@/lib/useScrollAnimation";
+import { WaitlistForm } from "@/components/WaitlistForm";
 
 export const HeroSection = (): JSX.Element => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });

@@ -7,7 +7,7 @@ import {
   YoutubeIcon,
 } from "lucide-react";
 import React from "react";
-import { useScrollAnimation } from "../../../../lib/useScrollAnimation";
+import { useScrollAnimation } from "@/lib/useScrollAnimation";
 
 const footerColumns = [
   {

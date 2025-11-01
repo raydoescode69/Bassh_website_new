@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useScrollAnimation } from "../../../../lib/useScrollAnimation";
+import { useScrollAnimation } from "@/lib/useScrollAnimation";
 
 export const AppShowcaseSection = (): JSX.Element => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });

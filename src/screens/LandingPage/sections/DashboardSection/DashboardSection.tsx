@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "lucide-react";
-import { WaitlistForm } from "../../../../components/WaitlistForm";
+import { WaitlistForm } from "@/components/WaitlistForm";
 
 export const DashboardSection = (): JSX.Element => {
   return (
