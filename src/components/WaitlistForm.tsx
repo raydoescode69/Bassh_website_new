@@ -8,6 +8,8 @@ interface WaitlistFormProps {
 
 export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [clubNameCity, setClubNameCity] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,7 +22,7 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) 
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, name, clubNameCity }),
       });
 
       await response.json();
@@ -28,6 +30,8 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) 
       if (response.ok) {
         setStatus("success");
         setEmail("");
+        setName("");
+        setClubNameCity("");
         
         setTimeout(() => {
           setStatus("idle");
@@ -67,32 +71,49 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) 
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={status === "loading"}
-            className="flex-1 px-5 py-3.5 md:py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#ff007e] focus:bg-white/15 transition-all [font-family:'Inter',Helvetica] text-base disabled:opacity-50 disabled:cursor-not-allowed"
-          />
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="px-8 py-3.5 md:py-4 bg-gradient-to-r from-[#ff007e] to-[#c30060] hover:from-[#ff1a8e] hover:to-[#d0006d] text-white font-semibold text-base rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#ff007e]/30 [font-family:'Poppins',Helvetica] whitespace-nowrap"
-          >
-            {status === "loading" ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Joining...
-              </span>
-            ) : (
-              "Join Waitlist"
-            )}
-          </button>
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3">
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          disabled={status === "loading"}
+          className="w-full px-4 sm:px-5 py-3 sm:py-3.5 md:py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#ff007e] focus:bg-white/15 transition-all [font-family:'Inter',Helvetica] text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+        />
+        <input
+          type="text"
+          placeholder="Club name & city"
+          value={clubNameCity}
+          onChange={(e) => setClubNameCity(e.target.value)}
+          required
+          disabled={status === "loading"}
+          className="w-full px-4 sm:px-5 py-3 sm:py-3.5 md:py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#ff007e] focus:bg-white/15 transition-all [font-family:'Inter',Helvetica] text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+        />
+        <input
+          type="email"
+          placeholder="Your Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          disabled={status === "loading"}
+          className="w-full px-4 sm:px-5 py-3 sm:py-3.5 md:py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#ff007e] focus:bg-white/15 transition-all [font-family:'Inter',Helvetica] text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="w-full px-6 sm:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-[#ff007e] to-[#c30060] hover:from-[#ff1a8e] hover:to-[#d0006d] text-white font-semibold text-sm sm:text-base rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#ff007e]/30 [font-family:'Poppins',Helvetica] whitespace-nowrap flex items-center justify-center"
+        >
+          {status === "loading" ? (
+            <span className="flex items-center gap-2">
+              <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+              <span className="hidden sm:inline">Joining...</span>
+              <span className="sm:hidden">Joining</span>
+            </span>
+          ) : (
+            "Join Waitlist"
+          )}
+        </button>
 
         {status === "error" && (
           <p className="text-red-400 text-sm text-center [font-family:'Inter',Helvetica] animate-fade-in">

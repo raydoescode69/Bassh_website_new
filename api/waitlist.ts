@@ -14,7 +14,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { email } = req.body;
+    const { email, name, clubNameCity } = req.body;
 
     // Validate email
     if (!email) {
@@ -24,6 +24,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: "Invalid email format" });
+    }
+
+    // Validate name
+    if (!name) {
+      return res.status(400).json({ error: "Name is required" });
+    }
+
+    // Validate club name & city
+    if (!clubNameCity) {
+      return res.status(400).json({ error: "Club name & city is required" });
     }
 
     // Check if Notion credentials are configured
@@ -45,6 +55,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             {
               text: {
                 content: email,
+              },
+            },
+          ],
+        },
+        Name: {
+          rich_text: [
+            {
+              text: {
+                content: name,
+              },
+            },
+          ],
+        },
+        "Club Name & City": {
+          rich_text: [
+            {
+              text: {
+                content: clubNameCity,
               },
             },
           ],
