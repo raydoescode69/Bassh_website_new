@@ -148,14 +148,14 @@ export const GuestListSection = (): JSX.Element => {
 
             {/* Mid callout badges - positioned on sides to avoid dashboard */}
             <div
-              className={`absolute left-[2%] lg:left-[4%] top-[35%] z-30 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+              className={`absolute left-[8%] lg:left-[10%] top-[35%] z-30 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 transitionDelay: isVisible ? "500ms" : "0ms",
                 transform: isVisible 
-                  ? `translateX(calc(-70% + ${scrollProgress * 20}px)) translateY(${-scrollProgress * 15}px) scale(${1 - scrollProgress * 0.05})` 
-                  : "translateX(calc(-70% - 20px)) translateY(-15px) scale(0.95)",
+                  ? `translateX(calc(-40% + ${scrollProgress * 20}px)) translateY(${-scrollProgress * 15}px) scale(${1 - scrollProgress * 0.05})` 
+                  : "translateX(calc(-40% - 20px)) translateY(-15px) scale(0.95)",
                 transitionProperty: "opacity, transform",
               }}
             >
@@ -169,14 +169,14 @@ export const GuestListSection = (): JSX.Element => {
             </div>
 
             <div
-              className={`absolute right-[2%] lg:right-[4%] top-[35%] z-30 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+              className={`absolute right-[8%] lg:right-[10%] top-[35%] z-30 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 transitionDelay: isVisible ? "600ms" : "0ms",
                 transform: isVisible 
-                  ? `translateX(calc(70% - ${scrollProgress * 20}px)) translateY(${-scrollProgress * 15}px) scale(${1 - scrollProgress * 0.05})` 
-                  : "translateX(calc(70% + 20px)) translateY(-15px) scale(0.95)",
+                  ? `translateX(calc(40% - ${scrollProgress * 20}px)) translateY(${-scrollProgress * 15}px) scale(${1 - scrollProgress * 0.05})` 
+                  : "translateX(calc(40% + 20px)) translateY(-15px) scale(0.95)",
                 transitionProperty: "opacity, transform",
               }}
             >
@@ -254,18 +254,19 @@ export const GuestListSection = (): JSX.Element => {
                 .map((badge, index) => {
                   const pos =
                     index === 0
-                      ? "left-[2%] lg:left-[4%] bottom-[24%]"
+                      ? "left-[8%] lg:left-[10%] bottom-[24%]"
                       : index === 1
-                      ? "left-[10%] lg:left-[14%] bottom-[14%]"
-                      : "left-[2%] lg:left-[4%] bottom-[4%]";
+                      ? "left-[6%] lg:left-[8%] bottom-[14%]"
+                      : "left-[8%] lg:left-[10%] bottom-[4%]";
+                  const translateXValue = index === 1 ? "-60%" : "-40%";
                   return (
                     <div
                       key={badge.label}
                       className={`absolute ${pos} z-20 pr-1 lg:pr-2 xl:pr-4`}
                       style={{
                         transform: isVisible 
-                          ? `translateX(calc(-70% + ${scrollProgress * 15}px)) translateY(${scrollProgress * 20}px) scale(${1 - scrollProgress * 0.03})` 
-                          : "translateX(calc(-70% - 15px)) translateY(20px) scale(0.97)",
+                          ? `translateX(calc(${translateXValue} + ${scrollProgress * 15}px)) translateY(${scrollProgress * 20}px) scale(${1 - scrollProgress * 0.03})` 
+                          : `translateX(calc(${translateXValue} - 15px)) translateY(20px) scale(0.97)`,
                         transitionDelay: isVisible ? `${(index + 5) * 120}ms` : "0ms",
                         transitionProperty: "transform",
                         transitionDuration: "800ms",
@@ -294,18 +295,19 @@ export const GuestListSection = (): JSX.Element => {
                 .map((badge, index) => {
                   const pos =
                     index === 0
-                      ? "right-[10%] lg:right-[14%] bottom-[24%]"
+                      ? "right-[6%] lg:right-[8%] bottom-[24%]"
                       : index === 1
-                      ? "right-[2%] lg:right-[4%] bottom-[14%]"
+                      ? "right-[8%] lg:right-[10%] bottom-[14%]"
                       : "right-[10%] lg:right-[14%] bottom-[4%]";
+                  const translateXValue = index === 0 ? "60%" : "40%";
                   return (
                     <div
                       key={badge.label}
                       className={`absolute ${pos} z-20 pl-1 lg:pl-2 xl:pl-4`}
                       style={{
                         transform: isVisible 
-                          ? `translateX(calc(70% - ${scrollProgress * 15}px)) translateY(${scrollProgress * 20}px) scale(${1 - scrollProgress * 0.03})` 
-                          : "translateX(calc(70% + 15px)) translateY(20px) scale(0.97)",
+                          ? `translateX(calc(${translateXValue} - ${scrollProgress * 15}px)) translateY(${scrollProgress * 20}px) scale(${1 - scrollProgress * 0.03})` 
+                          : `translateX(calc(${translateXValue} + 15px)) translateY(20px) scale(0.97)`,
                         transitionDelay: isVisible ? `${(index + 8) * 120}ms` : "0ms",
                         transitionProperty: "transform",
                         transitionDuration: "800ms",

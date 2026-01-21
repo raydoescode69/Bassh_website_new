@@ -8,6 +8,20 @@ const notion = new Client({
 const databaseId = process.env.NOTION_DATABASE_ID || "";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // Only allow POST requests
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -39,8 +53,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Check if Notion credentials are configured
     if (!process.env.NOTION_API_KEY || !process.env.NOTION_DATABASE_ID) {
       console.error("Notion credentials not configured");
+      console.error("NOTION_API_KEY exists:", !!process.env.NOTION_API_KEY);
+      console.error("NOTION_DATABASE_ID exists:", !!process.env.NOTION_DATABASE_ID);
       return res.status(500).json({ 
-        error: "Waitlist service is not configured." 
+        error: "Waitlist service is not configured. Please check your environment variables." 
       });
     }
 
@@ -87,21 +103,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (error: any) {
     console.error("Waitlist error:", error);
+    console.error("Error details:", {
+      message: error.message,
+      code: error.code,
+      status: error.status,
+    });
     
     if (error.code === "object_not_found") {
       return res.status(500).json({ 
-        error: "Database not found." 
+        error: "Database not found. Please check your NOTION_DATABASE_ID." 
       });
     }
     
     if (error.code === "unauthorized") {
       return res.status(500).json({ 
-        error: "Authentication failed." 
+        error: "Authentication failed. Please check your NOTION_API_KEY." 
       });
     }
 
     return res.status(500).json({ 
-      error: "Failed to join waitlist." 
+      error: error.message || "Failed to join waitlist. Please try again." 
     });
   }
 }
