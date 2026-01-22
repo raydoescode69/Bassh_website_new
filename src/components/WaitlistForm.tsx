@@ -19,17 +19,40 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) 
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:3001/waitlist", {
+      // Use relative URL for API route (works with vercel dev)
+      const apiUrl = "/api/waitlist";
+      console.log("Making request to:", apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, name, club: clubNameCity }),
+        body: JSON.stringify({ email, name, clubNameCity }),
       });
+      
+      console.log("Response status:", response.status);
+      console.log("Response URL:", response.url);
 
       // Check if response is JSON
       const contentType = response.headers.get("content-type");
       let data;
+      
+      // Check for 404 first - this usually means the route isn't found
+      if (response.status === 404) {
+        const text = await response.text();
+        // If it's HTML, it means Vercel served the SPA fallback instead of the API route
+        if (text.includes("<!DOCTYPE") || text.includes("<html") || !contentType?.includes("application/json")) {
+          throw new Error("API route not found. Make sure you're running 'npm run dev:vercel' (not 'npm run dev') and restart the server after configuration changes.");
+        }
+        // Otherwise it's a JSON 404 from the API itself
+        try {
+          data = JSON.parse(text);
+          throw new Error(data.error || "API route returned 404");
+        } catch {
+          throw new Error("API route not found. Please check your configuration.");
+        }
+      }
       
       if (contentType && contentType.includes("application/json")) {
         const text = await response.text();
@@ -38,18 +61,18 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) 
             data = JSON.parse(text);
           } catch (parseError) {
             console.error("JSON parse error:", parseError);
-            throw new Error("Invalid response from server. Please make sure the backend server is running on port 3001.");
+            throw new Error("Invalid response from server. Please try again.");
           }
         } else {
-          throw new Error("Empty response from server. Please check the backend server logs.");
+          throw new Error("Empty response from server. Please try again.");
         }
       } else {
         // Not a JSON response
-        if (response.status === 404) {
-          throw new Error("Backend server not found. Please make sure the server is running on port 3001.");
-        }
         const text = await response.text();
-        throw new Error(`Server returned non-JSON response (${response.status}). Please check your server configuration.`);
+        if (text.includes("<!DOCTYPE") || text.includes("<html")) {
+          throw new Error("API route not found. The server returned HTML instead of JSON. Make sure you're running 'npm run dev:vercel'.");
+        }
+        throw new Error(`Server returned non-JSON response (${response.status}). Please try again.`);
       }
 
       if (response.ok) {
@@ -77,7 +100,9 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ variant = "hero" }) 
       console.error("Error message:", error.message);
       
       if (error.name === "TypeError" && error.message.includes("Failed to fetch")) {
-        setErrorMessage("Cannot connect to server. Make sure 'vercel dev' is running and the API route is accessible.");
+        setErrorMessage("Cannot connect to API. Make sure you're running 'npm run dev:vercel' (not 'npm run dev'). API routes only work with 'vercel dev'.");
+      } else if (error.message.includes("404") || error.message.includes("not found")) {
+        setErrorMessage("API route not found. Please ensure you're running 'npm run dev:vercel' and that the server has been restarted after configuration changes.");
       } else {
         setErrorMessage(error.message || "Network error. Please check your connection and try again.");
       }

@@ -4,6 +4,7 @@ import {
   LinkedinIcon,
 } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/lib/useScrollAnimation";
 
 // Custom X (Twitter) Icon Component
@@ -21,12 +22,12 @@ const XIcon = ({ className }: { className?: string }) => (
 const footerColumns = [
   {
     title: "For Clubs",
-    links: [{ text: "Partner With Us", href: "#" }],
+    links: [{ text: "Partner With Us", href: "/partner-with-us", isRouterLink: true }],
   },
   {
     title: "Learn More",
     links: [
-      { text: "Help & Support", href: "#" },
+      { text: "Help & Support", href: "/help-support", isRouterLink: true },
       { text: "Report a Fraud", href: "#" },
       { text: "Blog", href: "#" },
     ],
@@ -63,15 +64,26 @@ export const DownloadAppSection = (): JSX.Element => {
               <h3 className="[font-family:'Poppins',Helvetica] font-normal text-[#e8e8e8] text-sm sm:text-base md:text-lg tracking-[0] leading-6 sm:leading-7 mb-1 md:mb-2">
                 {column.title}
               </h3>
-              {column.links.map((link, linkIndex) => (
-                <a
-                  key={linkIndex}
-                  href={link.href}
-                  className="[font-family:'Inter',Helvetica] font-normal text-[#62626a] text-xs sm:text-sm md:text-base tracking-[0] leading-5 sm:leading-6 hover:text-[#ff007e] transition-colors"
-                >
-                  {link.text}
-                </a>
-              ))}
+              {column.links.map((link, linkIndex) => {
+                const linkProps = {
+                  key: linkIndex,
+                  className: "[font-family:'Inter',Helvetica] font-normal text-[#62626a] text-xs sm:text-sm md:text-base tracking-[0] leading-5 sm:leading-6 hover:text-[#ff007e] transition-colors",
+                };
+
+                if ((link as any).isRouterLink) {
+                  return (
+                    <Link {...linkProps} to={link.href}>
+                      {link.text}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <a {...linkProps} href={link.href}>
+                    {link.text}
+                  </a>
+                );
+              })}
             </nav>
           ))}
 
