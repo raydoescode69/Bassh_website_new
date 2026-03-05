@@ -6,13 +6,12 @@ import { Navbar } from "../../components/Navbar";
 import { DemoModal } from "../../components/DemoModal";
 import { DownloadAppSection } from "../LandingPage/sections/DownloadAppSection";
 
-export const HelpSupportPage = (): JSX.Element => {
+export const JoinUsPage = (): JSX.Element => {
   const [demoOpen, setDemoOpen] = useState(false);
-  const [problem, setProblem] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [ownerName, setOwnerName] = useState("");
   const [email, setEmail] = useState("");
+  const [clubNameGstin, setClubNameGstin] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
-  const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,19 +21,18 @@ export const HelpSupportPage = (): JSX.Element => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/help-support", {
+      const response = await fetch("/api/partner-with-us", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ problem, fullName, email, mobileNumber, message }),
+        body: JSON.stringify({ ownerName, email, clubNameGstin, mobileNumber }),
       });
 
       if (response.ok) {
         setStatus("success");
-        setProblem("");
-        setFullName("");
+        setOwnerName("");
         setEmail("");
+        setClubNameGstin("");
         setMobileNumber("");
-        setMessage("");
         setTimeout(() => setStatus("idle"), 4000);
       } else {
         const data = await response.json().catch(() => ({}));
@@ -52,23 +50,23 @@ export const HelpSupportPage = (): JSX.Element => {
   return (
     <div className="w-full flex flex-col min-h-screen overflow-x-hidden bg-[#0a0a0a]">
       <SEO
-        title="Help & Support"
-        description="Need help with Bassh? Submit a support request and our team will get back to you as soon as possible."
-        path="/help-support"
+        title="Join Us"
+        description="Join the Bassh network and unlock powerful tools to grow your venue. Partner with India's #1 nightlife platform."
+        path="/join-us"
       />
       <Navbar onRequestDemo={() => setDemoOpen(true)} />
 
       {/* Hero */}
       <section className="relative pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 md:pb-16 px-4 sm:px-6 md:px-8">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[300px] sm:h-[400px] bg-[#ff007e10] rounded-full blur-[150px]" />
+          <div className="absolute top-0 right-1/3 w-full max-w-[700px] h-[300px] sm:h-[400px] bg-[#ff007e10] rounded-full blur-[150px]" />
         </div>
         <div className="relative max-w-3xl mx-auto text-center px-2">
           <h1 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-3 sm:mb-4 animate-blur-in">
-            Help & Support
+            Join Us
           </h1>
           <p className="[font-family:'Inter',Helvetica] text-white/60 text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-            Having an issue? Tell us about it and we'll get back to you as soon as possible.
+            Join the Bassh network and unlock powerful tools to grow your venue.
           </p>
         </div>
       </section>
@@ -79,10 +77,10 @@ export const HelpSupportPage = (): JSX.Element => {
           <div className="w-full bg-white/[0.05] backdrop-blur-2xl backdrop-saturate-150 rounded-xl sm:rounded-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] overflow-hidden animate-slide-up-fade" style={{ animationDelay: "300ms" }}>
             <div className="px-5 sm:px-6 md:px-8 pt-5 sm:pt-6 md:pt-8 pb-2">
               <h2 className="[font-family:'Poppins',Helvetica] font-bold text-white text-xl sm:text-2xl">
-                Submit a Request
+                Get Started
               </h2>
               <p className="[font-family:'Poppins',Helvetica] font-normal text-white/50 text-sm mt-1">
-                Describe your issue and we'll help you out.
+                Tell us about your venue and we'll reach out.
               </p>
             </div>
 
@@ -93,29 +91,20 @@ export const HelpSupportPage = (): JSX.Element => {
                     <CheckCircle2 className="w-8 h-8 text-[#ff007e]" />
                   </div>
                   <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-lg mb-2">
-                    Feedback Submitted!
+                    Details Submitted!
                   </h3>
                   <p className="[font-family:'Inter',Helvetica] text-white/60 text-sm">
-                    Thank you for contacting us. We'll get back to you soon.
+                    Thank you for your interest. We'll get back to you soon.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="What's the issue? *"
-                    value={problem}
-                    onChange={(e) => setProblem(e.target.value)}
-                    required
-                    disabled={status === "loading"}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                  />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input
                       type="text"
-                      placeholder="Full Name *"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Owner Name *"
+                      value={ownerName}
+                      onChange={(e) => setOwnerName(e.target.value)}
                       required
                       disabled={status === "loading"}
                       className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
@@ -131,21 +120,20 @@ export const HelpSupportPage = (): JSX.Element => {
                     />
                   </div>
                   <input
+                    type="text"
+                    placeholder="Club Name / GSTIN"
+                    value={clubNameGstin}
+                    onChange={(e) => setClubNameGstin(e.target.value)}
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
+                  />
+                  <input
                     type="tel"
-                    placeholder="Mobile Number (optional)"
+                    placeholder="Mobile Number"
                     value={mobileNumber}
                     onChange={(e) => setMobileNumber(e.target.value)}
                     disabled={status === "loading"}
                     className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                  />
-                  <textarea
-                    placeholder="Describe your issue in detail *"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                    disabled={status === "loading"}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50 resize-none"
                   />
 
                   <button
@@ -159,7 +147,7 @@ export const HelpSupportPage = (): JSX.Element => {
                         Sending...
                       </span>
                     ) : (
-                      "Submit Request"
+                      "Submit Details"
                     )}
                   </button>
 
@@ -172,12 +160,6 @@ export const HelpSupportPage = (): JSX.Element => {
               )}
             </div>
           </div>
-          <p className="text-center mt-4 sm:mt-5 [font-family:'Inter',Helvetica] text-white/40 text-sm">
-            Or email us directly at{" "}
-            <a href="mailto:support@bassh.in" className="text-[#ff007e] hover:text-[#ff1a8e] transition-colors">
-              support@bassh.in
-            </a>
-          </p>
         </div>
       </section>
 

@@ -58,6 +58,31 @@ module.exports = {
         ],
       },
       keyframes: {
+        "dotBounce": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "orbitA": {
+          "0%":   { transform: "translate(0px, 0px)" },
+          "25%":  { transform: "translate(12px, -14px)" },
+          "50%":  { transform: "translate(0px, -20px)" },
+          "75%":  { transform: "translate(-12px, -10px)" },
+          "100%": { transform: "translate(0px, 0px)" },
+        },
+        "orbitB": {
+          "0%":   { transform: "translate(0px, -50%)" },
+          "25%":  { transform: "translate(14px, calc(-50% + 16px))" },
+          "50%":  { transform: "translate(0px, calc(-50% + 22px))" },
+          "75%":  { transform: "translate(-14px, calc(-50% + 8px))" },
+          "100%": { transform: "translate(0px, -50%)" },
+        },
+        "orbitC": {
+          "0%":   { transform: "translate(0px, 0px)" },
+          "25%":  { transform: "translate(-10px, 12px)" },
+          "50%":  { transform: "translate(0px, 18px)" },
+          "75%":  { transform: "translate(10px, 8px)" },
+          "100%": { transform: "translate(0px, 0px)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -94,6 +119,59 @@ module.exports = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "floatCard0": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "floatCard1": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+        "floatCard2": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
+        "pulse": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.15)" },
+        },
+        "marqueeLeft": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "spinBorder": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "shimmer-text": {
+          "0%": { backgroundPosition: "-200% center" },
+          "100%": { backgroundPosition: "200% center" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(255,0,126,0.15)" },
+          "50%": { boxShadow: "0 0 40px rgba(255,0,126,0.35), 0 0 80px rgba(255,0,126,0.15)" },
+        },
+        "float-smooth": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-14px)" },
+        },
+        "blur-in": {
+          "0%": { opacity: "0", filter: "blur(12px)" },
+          "100%": { opacity: "1", filter: "blur(0)" },
+        },
+        "slide-up-fade": {
+          "0%": { opacity: "0", transform: "translateY(30px) scale(0.98)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        "ping-slow": {
+          "0%": { transform: "scale(1)", opacity: "0.8" },
+          "75%, 100%": { transform: "scale(1.6)", opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -105,6 +183,13 @@ module.exports = {
         "slide-in-right": "slide-in-right 0.6s ease-out",
         "scale-in": "scale-in 0.6s ease-out",
         "float": "float 3s ease-in-out infinite",
+        "shimmer-text": "shimmer-text 3s linear infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "float-smooth": "float-smooth 4s ease-in-out infinite",
+        "blur-in": "blur-in 0.8s ease-out",
+        "slide-up-fade": "slide-up-fade 0.7s ease-out both",
+        "gradient-shift": "gradient-shift 6s ease infinite",
+        "ping-slow": "ping-slow 2s cubic-bezier(0,0,0.2,1) infinite",
       },
     },
     container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },

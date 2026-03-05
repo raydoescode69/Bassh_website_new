@@ -22,14 +22,18 @@ const XIcon = ({ className }: { className?: string }) => (
 const footerColumns = [
   {
     title: "For Clubs",
-    links: [{ text: "Partner With Us", href: "/partner-with-us", isRouterLink: true }],
+    links: [
+      { text: "Join Us", href: "/join-us", isRouterLink: true },
+      { text: "Enterprise", href: "/enterprise", isRouterLink: true },
+    ],
   },
   {
     title: "Learn More",
     links: [
+      { text: "FAQs", href: "/faqs", isRouterLink: true },
       { text: "Help & Support", href: "/help-support", isRouterLink: true },
-      { text: "Report a Fraud", href: "#" },
-      { text: "Blog", href: "#" },
+      { text: "Blog", href: "/blog", isRouterLink: true },
+      { text: "Careers", href: "/careers", isRouterLink: true },
     ],
   },
   {
@@ -38,25 +42,33 @@ const footerColumns = [
       { text: "Privacy", href: "#" },
       { text: "Security", href: "#" },
       { text: "Terms of Service", href: "#" },
+      { text: "Report a Fraud", href: "#" },
     ],
   },
 ];
 
 const socialLinks = [
-  { icon: XIcon, href: "#", alt: "X" },
+  { icon: XIcon, href: "https://x.com/BasshApp", alt: "X" },
   { icon: InstagramIcon, href: "#", alt: "Instagram" },
-  { icon: LinkedinIcon, href: "#", alt: "LinkedIn" },
+  { icon: LinkedinIcon, href: "https://www.linkedin.com/company/bassh/about/?viewAsMember=true", alt: "LinkedIn" },
 ];
 
 export const DownloadAppSection = (): JSX.Element => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <footer className="w-full bg-black py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8">
-      <div ref={ref} className="max-w-7xl mx-auto">
+    <footer className="relative w-full bg-[#0a0a0a] py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[55%] h-full bg-gradient-to-l from-[#ff007e18] via-[#c3006010] to-transparent" />
+        <div className="absolute top-[10%] right-[5%] w-[700px] h-[700px] bg-[#ff007e0c] rounded-full blur-[150px]" />
+        <div className="absolute top-[30%] right-[15%] w-[400px] h-[400px] bg-[#a200ff08] rounded-full blur-[120px]" />
+      </div>
+      <div ref={ref} className="relative max-w-7xl mx-auto">
         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-10 lg:gap-8 mb-6 sm:mb-8 md:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="lg:col-span-1 flex justify-center sm:justify-start">
-            <img className="w-24 h-8 sm:w-28 sm:h-10 md:w-32 md:h-12 object-contain" alt="BASSH Logo" src="/image-2-1.png" />
+            <Link to="/" className="transition-opacity hover:opacity-80">
+              <img className="w-24 h-8 sm:w-28 sm:h-10 md:w-32 md:h-12 object-contain" alt="BASSH Logo" src="/image-2-1.png" />
+            </Link>
           </div>
 
           {footerColumns.map((column, index) => (
@@ -98,6 +110,8 @@ export const DownloadAppSection = (): JSX.Element => {
                   <a
                     key={index}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex items-center justify-center text-[#e8e8e8] hover:text-[#ff007e] transition-all hover:scale-110 rounded-full hover:bg-[#ff007e1a]"
                     aria-label={social.alt}
                   >
@@ -115,7 +129,7 @@ export const DownloadAppSection = (): JSX.Element => {
             Cookie Policy, Privacy Policy, and Content Guidelines. All
             trademarks are property of their respective owners.
             <br />
-            2008–2025 © BASSH™. All rights reserved.
+            2024–2025 © BASSH™. All rights reserved.
           </p>
         </div>
       </div>
