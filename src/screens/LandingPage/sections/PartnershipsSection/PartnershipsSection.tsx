@@ -32,7 +32,7 @@ export const PartnershipsSection = (): JSX.Element => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          Powering the best clubs
+          Trusted by top clubs
         </h2>
         <p
           className={`[font-family:'Poppins',Helvetica] font-normal text-white/50 text-sm sm:text-base md:text-lg text-center max-w-[520px] leading-relaxed px-4 transition-all duration-700 ${

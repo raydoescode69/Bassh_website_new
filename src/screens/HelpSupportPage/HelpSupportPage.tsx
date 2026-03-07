@@ -1,23 +1,26 @@
 "use client";
 import React, { useState } from "react";
-import { Loader2, CheckCircle2 } from "lucide-react";
 import { SEO } from "../../components/SEO";
 import { Navbar } from "../../components/Navbar";
 import { DemoModal } from "../../components/DemoModal";
 import { DownloadAppSection } from "../LandingPage/sections/DownloadAppSection";
+import { ConversationalForm, FormStep } from "../../components/ConversationalForm";
+
+const steps: FormStep[] = [
+  { key: "problem", label: "What's the issue?", placeholder: "Brief summary of the problem", type: "text", required: true },
+  { key: "fullName", label: "What's your name?", placeholder: "Your full name", type: "text", required: true },
+  { key: "email", label: "What's your email?", placeholder: "you@example.com", type: "email", required: true },
+  { key: "mobileNumber", label: "Mobile number?", placeholder: "+91 98765 43210", type: "tel", required: false },
+  { key: "message", label: "Describe your issue in detail", placeholder: "Tell us everything so we can help...", type: "textarea", required: true },
+];
 
 export const HelpSupportPage = (): JSX.Element => {
   const [demoOpen, setDemoOpen] = useState(false);
-  const [problem, setProblem] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [formKey, setFormKey] = useState(0);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (values: Record<string, string>) => {
     setStatus("loading");
     setErrorMessage("");
 
@@ -25,22 +28,29 @@ export const HelpSupportPage = (): JSX.Element => {
       const response = await fetch("/api/help-support", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ problem, fullName, email, mobileNumber, message }),
+        body: JSON.stringify({
+          problem: values.problem,
+          fullName: values.fullName,
+          email: values.email,
+          mobileNumber: values.mobileNumber,
+          message: values.message,
+        }),
       });
 
-      if (response.ok) {
-        setStatus("success");
-        setProblem("");
-        setFullName("");
-        setEmail("");
-        setMobileNumber("");
-        setMessage("");
-        setTimeout(() => setStatus("idle"), 4000);
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        if (response.ok) {
+          setStatus("success");
+          setTimeout(() => { setStatus("idle"); setFormKey((k) => k + 1); }, 4000);
+        } else {
+          setErrorMessage(data.error || "Something went wrong. Please try again.");
+          setStatus("error");
+          setTimeout(() => { setStatus("idle"); setErrorMessage(""); }, 5000);
+        }
       } else {
-        const data = await response.json().catch(() => ({}));
-        setErrorMessage(data.error || "Something went wrong. Please try again.");
-        setStatus("error");
-        setTimeout(() => { setStatus("idle"); setErrorMessage(""); }, 5000);
+        setStatus("success");
+        setTimeout(() => { setStatus("idle"); setFormKey((k) => k + 1); }, 4000);
       }
     } catch {
       setErrorMessage("Network error. Please check your connection and try again.");
@@ -87,89 +97,16 @@ export const HelpSupportPage = (): JSX.Element => {
             </div>
 
             <div className="px-5 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6">
-              {status === "success" ? (
-                <div className="text-center py-8 animate-fade-in">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-[#ff007e]/20 rounded-full mb-4">
-                    <CheckCircle2 className="w-8 h-8 text-[#ff007e]" />
-                  </div>
-                  <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-lg mb-2">
-                    Feedback Submitted!
-                  </h3>
-                  <p className="[font-family:'Inter',Helvetica] text-white/60 text-sm">
-                    Thank you for contacting us. We'll get back to you soon.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="What's the issue? *"
-                    value={problem}
-                    onChange={(e) => setProblem(e.target.value)}
-                    required
-                    disabled={status === "loading"}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                  />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      placeholder="Full Name *"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      required
-                      disabled={status === "loading"}
-                      className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email *"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      disabled={status === "loading"}
-                      className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                    />
-                  </div>
-                  <input
-                    type="tel"
-                    placeholder="Mobile Number (optional)"
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                    disabled={status === "loading"}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                  />
-                  <textarea
-                    placeholder="Describe your issue in detail *"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                    disabled={status === "loading"}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50 resize-none"
-                  />
-
-                  <button
-                    type="submit"
-                    disabled={status === "loading"}
-                    className="w-full px-6 py-3 sm:py-3.5 min-h-[2.75rem] bg-gradient-to-r from-[#ff007e] to-[#c30060] hover:from-[#ff1a8e] hover:to-[#d0006d] text-white font-semibold text-sm rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#ff007e]/20 [font-family:'Poppins',Helvetica] flex items-center justify-center"
-                  >
-                    {status === "loading" ? (
-                      <span className="flex items-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </span>
-                    ) : (
-                      "Submit Request"
-                    )}
-                  </button>
-
-                  {status === "error" && (
-                    <p className="text-red-400 text-sm text-center [font-family:'Inter',Helvetica] animate-fade-in">
-                      {errorMessage}
-                    </p>
-                  )}
-                </form>
-              )}
+              <ConversationalForm
+                key={formKey}
+                steps={steps}
+                onSubmit={handleSubmit}
+                status={status}
+                errorMessage={errorMessage}
+                successTitle="Feedback Submitted!"
+                successMessage="Thank you for contacting us. We'll get back to you soon."
+                submitLabel="Submit Request"
+              />
             </div>
           </div>
           <p className="text-center mt-4 sm:mt-5 [font-family:'Inter',Helvetica] text-white/40 text-sm">

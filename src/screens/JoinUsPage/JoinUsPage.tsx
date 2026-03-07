@@ -1,22 +1,25 @@
 "use client";
 import React, { useState } from "react";
-import { Loader2, CheckCircle2 } from "lucide-react";
 import { SEO } from "../../components/SEO";
 import { Navbar } from "../../components/Navbar";
 import { DemoModal } from "../../components/DemoModal";
 import { DownloadAppSection } from "../LandingPage/sections/DownloadAppSection";
+import { ConversationalForm, FormStep } from "../../components/ConversationalForm";
+
+const steps: FormStep[] = [
+  { key: "ownerName", label: "What's your name?", placeholder: "Owner / Manager name", type: "text", required: true },
+  { key: "email", label: "What's your email?", placeholder: "you@example.com", type: "email", required: true },
+  { key: "clubNameGstin", label: "Club name or GSTIN?", placeholder: "Club name / GSTIN", type: "text", required: false },
+  { key: "mobileNumber", label: "Mobile number?", placeholder: "+91 98765 43210", type: "tel", required: true },
+];
 
 export const JoinUsPage = (): JSX.Element => {
   const [demoOpen, setDemoOpen] = useState(false);
-  const [ownerName, setOwnerName] = useState("");
-  const [email, setEmail] = useState("");
-  const [clubNameGstin, setClubNameGstin] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [formKey, setFormKey] = useState(0);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (values: Record<string, string>) => {
     setStatus("loading");
     setErrorMessage("");
 
@@ -24,21 +27,28 @@ export const JoinUsPage = (): JSX.Element => {
       const response = await fetch("/api/partner-with-us", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ownerName, email, clubNameGstin, mobileNumber }),
+        body: JSON.stringify({
+          ownerName: values.ownerName,
+          email: values.email,
+          clubNameGstin: values.clubNameGstin,
+          mobileNumber: values.mobileNumber,
+        }),
       });
 
-      if (response.ok) {
-        setStatus("success");
-        setOwnerName("");
-        setEmail("");
-        setClubNameGstin("");
-        setMobileNumber("");
-        setTimeout(() => setStatus("idle"), 4000);
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        if (response.ok) {
+          setStatus("success");
+          setTimeout(() => { setStatus("idle"); setFormKey((k) => k + 1); }, 4000);
+        } else {
+          setErrorMessage(data.error || "Something went wrong. Please try again.");
+          setStatus("error");
+          setTimeout(() => { setStatus("idle"); setErrorMessage(""); }, 5000);
+        }
       } else {
-        const data = await response.json().catch(() => ({}));
-        setErrorMessage(data.error || "Something went wrong. Please try again.");
-        setStatus("error");
-        setTimeout(() => { setStatus("idle"); setErrorMessage(""); }, 5000);
+        setStatus("success");
+        setTimeout(() => { setStatus("idle"); setFormKey((k) => k + 1); }, 4000);
       }
     } catch {
       setErrorMessage("Network error. Please check your connection and try again.");
@@ -85,79 +95,16 @@ export const JoinUsPage = (): JSX.Element => {
             </div>
 
             <div className="px-5 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6">
-              {status === "success" ? (
-                <div className="text-center py-8 animate-fade-in">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-[#ff007e]/20 rounded-full mb-4">
-                    <CheckCircle2 className="w-8 h-8 text-[#ff007e]" />
-                  </div>
-                  <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-lg mb-2">
-                    Details Submitted!
-                  </h3>
-                  <p className="[font-family:'Inter',Helvetica] text-white/60 text-sm">
-                    Thank you for your interest. We'll get back to you soon.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      placeholder="Owner Name *"
-                      value={ownerName}
-                      onChange={(e) => setOwnerName(e.target.value)}
-                      required
-                      disabled={status === "loading"}
-                      className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email *"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      disabled={status === "loading"}
-                      className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Club Name / GSTIN"
-                    value={clubNameGstin}
-                    onChange={(e) => setClubNameGstin(e.target.value)}
-                    disabled={status === "loading"}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                  />
-                  <input
-                    type="tel"
-                    placeholder="Mobile Number"
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                    disabled={status === "loading"}
-                    className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff007e] transition-all [font-family:'Inter',Helvetica] text-sm disabled:opacity-50"
-                  />
-
-                  <button
-                    type="submit"
-                    disabled={status === "loading"}
-                    className="w-full px-6 py-3 sm:py-3.5 min-h-[2.75rem] bg-gradient-to-r from-[#ff007e] to-[#c30060] hover:from-[#ff1a8e] hover:to-[#d0006d] text-white font-semibold text-sm rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#ff007e]/20 [font-family:'Poppins',Helvetica] flex items-center justify-center"
-                  >
-                    {status === "loading" ? (
-                      <span className="flex items-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </span>
-                    ) : (
-                      "Submit Details"
-                    )}
-                  </button>
-
-                  {status === "error" && (
-                    <p className="text-red-400 text-sm text-center [font-family:'Inter',Helvetica] animate-fade-in">
-                      {errorMessage}
-                    </p>
-                  )}
-                </form>
-              )}
+              <ConversationalForm
+                key={formKey}
+                steps={steps}
+                onSubmit={handleSubmit}
+                status={status}
+                errorMessage={errorMessage}
+                successTitle="Details Submitted!"
+                successMessage="Thank you for your interest. We'll get back to you soon."
+                submitLabel="Submit Details"
+              />
             </div>
           </div>
         </div>

@@ -231,3 +231,29 @@
     transform: translateY(calc(-100% - var(--gap)));
   }
 }
+
+@keyframes convStepIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes convTickPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-15deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}

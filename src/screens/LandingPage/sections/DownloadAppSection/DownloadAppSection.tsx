@@ -42,7 +42,6 @@ const footerColumns = [
       { text: "Privacy", href: "#" },
       { text: "Security", href: "#" },
       { text: "Terms of Service", href: "#" },
-      { text: "Report a Fraud", href: "#" },
     ],
   },
 ];

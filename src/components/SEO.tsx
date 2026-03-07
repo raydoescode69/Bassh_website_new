@@ -8,10 +8,35 @@ interface SEOProps {
 }
 
 const SITE_NAME = "Bassh";
-const SITE_URL = "https://bassh.app";
+const SITE_URL = "https://bassh.in";
 const DEFAULT_DESCRIPTION =
   "India's #1 real-time nightlife platform. Discover the best clubs, get on guest lists, and enjoy VIP experiences — all in one app.";
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Bassh",
+  url: "https://bassh.in",
+  logo: `${SITE_URL}/og-image.png`,
+  description: DEFAULT_DESCRIPTION,
+  sameAs: [
+    "https://x.com/BasshApp",
+    "https://www.linkedin.com/company/bassh/",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "support@bassh.in",
+    contactType: "customer support",
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Bassh",
+  url: "https://bassh.in",
+};
 
 export const SEO = ({
   title,
@@ -19,7 +44,7 @@ export const SEO = ({
   path = "",
   type = "website",
 }: SEOProps) => {
-  const pageTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — India's #1 Real-Time Nightlife Platform`;
+  const pageTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — India's #1 Real-Time Nightlife OS`;
   const url = `${SITE_URL}${path}`;
 
   return (
@@ -44,6 +69,14 @@ export const SEO = ({
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={OG_IMAGE} />
+
+      {/* Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify(organizationSchema)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(websiteSchema)}
+      </script>
     </Helmet>
   );
 };

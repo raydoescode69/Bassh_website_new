@@ -52,7 +52,7 @@ export const DashboardSection = ({ onRequestDemo }: DashboardSectionProps): JSX.
               }`}
               style={{ transitionDelay: leftVisible ? "200ms" : "0ms" }}
             >
-              India&apos;s #1 Real-Time Nightlife Platform
+              India&apos;s #1 Real-Time Nightlife OS
             </h1>
 
             {/* Subtitle */}

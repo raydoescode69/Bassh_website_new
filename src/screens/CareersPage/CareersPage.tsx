@@ -74,7 +74,7 @@ export const CareersPage = (): JSX.Element => {
             Open Positions
           </h2>
           <div className="text-center py-12 sm:py-16 rounded-xl border border-white/10 bg-white/[0.02] animate-slide-up-fade" style={{ animationDelay: "300ms" }}>
-            <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium text-[#ff007e] border border-[#ff007e]/30 rounded-full [font-family:'Poppins',Helvetica] uppercase tracking-wider">
+            <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium text-[#ff007e] rounded-full [font-family:'Poppins',Helvetica] uppercase tracking-wider">
               Coming Soon
             </span>
             <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-lg sm:text-xl mb-2">

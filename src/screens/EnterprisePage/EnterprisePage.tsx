@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Building2, BarChart3, Shield, Headphones } from "lucide-react";
+import { Megaphone, BarChart3, Activity, Building2 } from "lucide-react";
 import { SEO } from "../../components/SEO";
 import { Navbar } from "../../components/Navbar";
 import { DemoModal } from "../../components/DemoModal";
@@ -8,28 +8,28 @@ import { DownloadAppSection } from "../LandingPage/sections/DownloadAppSection";
 
 const features = [
   {
-    icon: Building2,
-    title: "Multi-Venue Management",
+    icon: Megaphone,
+    title: "Footfall Growth Engine",
     description:
-      "Manage all your venues from a single dashboard. Unified analytics, guest lists, and promotions across your entire portfolio.",
+      "Promote events, guest lists, and offers to thousands of clubbers on Bassh actively looking for the best nightlife in the city.",
   },
   {
     icon: BarChart3,
-    title: "Advanced Analytics",
+    title: "Event & DJ Performance Insights",
     description:
-      "Deep insights into attendance patterns, revenue metrics, and customer demographics to drive data-informed decisions.",
+      "Track which DJs, events, and promoters bring the biggest crowds and highest bar revenue.",
   },
   {
-    icon: Shield,
-    title: "Enterprise Security",
+    icon: Activity,
+    title: "Real-Time Club Dashboard",
     description:
-      "SOC 2 compliant infrastructure with role-based access control, SSO integration, and dedicated data privacy controls.",
+      "Monitor guest lists, table bookings, and entry numbers live during the night.",
   },
   {
-    icon: Headphones,
-    title: "Dedicated Support",
+    icon: Building2,
+    title: "Multi-Venue Operations",
     description:
-      "Priority 24/7 support with a dedicated account manager and custom onboarding for your team.",
+      "Manage multiple clubs, events, and performance metrics from a single unified dashboard.",
   },
 ];
 
@@ -52,11 +52,11 @@ export const EnterprisePage = (): JSX.Element => {
           <div className="absolute bottom-0 left-0 w-full max-w-[400px] h-[200px] sm:h-[300px] bg-[#a200ff08] rounded-full blur-[120px]" />
         </div>
         <div className="relative max-w-3xl mx-auto text-center px-2">
-          <span className="inline-block px-4 py-1.5 mb-4 sm:mb-6 text-xs font-medium text-[#ff007e] border border-[#ff007e]/30 rounded-full [font-family:'Poppins',Helvetica] uppercase tracking-wider">
+          <span className="inline-block px-4 py-1.5 mb-4 sm:mb-6 text-xs font-medium text-[#ff007e] rounded-full [font-family:'Poppins',Helvetica] uppercase tracking-wider">
             Enterprise
           </span>
           <h1 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-3 sm:mb-4 animate-blur-in">
-            Built for Scale
+            Fill Your Club. Every Night.
           </h1>
           <p className="[font-family:'Inter',Helvetica] text-white/60 text-sm sm:text-base md:text-lg max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed">
             Powerful tools for hospitality groups and large venue operators.

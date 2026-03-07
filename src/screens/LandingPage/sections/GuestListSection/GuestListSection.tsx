@@ -48,7 +48,7 @@ export const GuestListSection = (): JSX.Element => {
               return (
                 <div
                   key={stat.value}
-                  className={`w-[160px] sm:w-[170px] md:w-[190px] h-[140px] sm:h-[150px] md:h-[160px] rounded-xl border border-[#ff007e50] bg-[#0a0a0a] flex flex-col items-center justify-center gap-3 transition-all duration-700 hover:border-[#ff007e] hover:bg-[#ffffff06] hover:scale-105 hover:shadow-[0_0_30px_rgba(255,0,126,0.2)] ${
+                  className={`w-[160px] sm:w-[170px] md:w-[190px] h-[140px] sm:h-[150px] md:h-[160px] rounded-2xl border border-white/[0.12] bg-white/[0.04] backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(255,255,255,0.05)] flex flex-col items-center justify-center gap-3 transition-all duration-700 hover:border-white/[0.2] hover:bg-white/[0.07] hover:scale-105 hover:shadow-[0_8px_40px_rgba(255,0,126,0.15),inset_0_1px_0_rgba(255,255,255,0.15)] ${
                     statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                   }`}
                   style={{

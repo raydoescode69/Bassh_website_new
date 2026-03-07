@@ -77,32 +77,18 @@ export const BlogPage = (): JSX.Element => {
         </div>
       </section>
 
-      {/* Blog Grid */}
+      {/* Coming Soon */}
       <section className="relative px-4 sm:px-6 md:px-8 pb-12 sm:pb-16 md:pb-24">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-          {posts.map((post, i) => (
-            <article
-              key={i}
-              className="group flex flex-col rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.02] hover:border-[#ff007e]/30 transition-all duration-300 overflow-hidden cursor-pointer hover:shadow-[0_0_30px_rgba(255,0,126,0.1)] hover:-translate-y-1 animate-slide-up-fade"
-              style={{ animationDelay: `${300 + i * 120}ms` }}
-            >
-              <div className="w-full h-32 sm:h-36 md:h-40 bg-gradient-to-br from-[#ff007e]/20 to-[#a200ff]/10" />
-              <div className="p-4 sm:p-5 md:p-6 flex flex-col flex-1">
-                <span className="inline-block self-start px-2.5 py-0.5 mb-2.5 sm:mb-3 text-[11px] font-medium text-[#ff007e] border border-[#ff007e]/30 rounded-full [font-family:'Poppins',Helvetica] uppercase tracking-wider">
-                  {post.tag}
-                </span>
-                <h3 className="[font-family:'Poppins',Helvetica] font-medium text-white text-base sm:text-lg mb-1.5 sm:mb-2 group-hover:text-[#ff007e] transition-colors">
-                  {post.title}
-                </h3>
-                <p className="[font-family:'Inter',Helvetica] text-white/50 text-sm leading-relaxed mb-3 sm:mb-4 flex-1">
-                  {post.excerpt}
-                </p>
-                <span className="[font-family:'Inter',Helvetica] text-white/30 text-xs">
-                  {post.date}
-                </span>
-              </div>
-            </article>
-          ))}
+        <div className="max-w-lg mx-auto text-center py-12 sm:py-16 rounded-xl border border-white/10 bg-white/[0.02] animate-slide-up-fade" style={{ animationDelay: "300ms" }}>
+          <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium text-[#ff007e] rounded-full [font-family:'Poppins',Helvetica] uppercase tracking-wider">
+            Coming Soon
+          </span>
+          <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-lg sm:text-xl mb-2">
+            We're working on something exciting
+          </h3>
+          <p className="[font-family:'Inter',Helvetica] text-white/50 text-sm sm:text-base max-w-md mx-auto px-4">
+            Our blog is launching soon with insights on nightlife trends, club management, and everything Bassh. Stay tuned!
+          </p>
         </div>
       </section>
 
